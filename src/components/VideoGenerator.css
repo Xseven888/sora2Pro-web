@@ -1,0 +1,746 @@
+/**
+ * 作者：沐七
+ * 日期：2025/12/11
+ */
+.video-generator {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+  gap: 0;
+  position: relative;
+}
+
+.generator-display-area {
+  flex: 1;
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 40px;
+  padding-bottom: 300px; /* 为底部固定区域留出空间 */
+  overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 300px;
+}
+
+.empty-video-state {
+  text-align: center;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 18px;
+  color: #b0b0b0;
+  margin-bottom: 8px;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: #666;
+}
+
+.videos-display-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.videos-table-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.video-display-item {
+  background: #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  aspect-ratio: 9 / 16; /* 竖屏比例，确保所有卡片大小一致 */
+  position: relative;
+}
+
+.video-display-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.video-placeholder {
+  flex: 1;
+  padding: 60px 20px;
+  text-align: center;
+  background: #2a2a2a;
+  color: #999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #3d3d3d;
+  border-top-color: #ff6b35;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progress-info {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.progress-bar-inline {
+  width: 200px;
+  height: 6px;
+  background: #3d3d3d;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill-inline {
+  height: 100%;
+  background: #ff6b35;
+  transition: width 0.3s;
+}
+
+.video-display-info {
+  padding: 12px;
+  font-size: 12px;
+  color: #999;
+}
+
+.video-display-info p {
+  margin: 4px 0;
+}
+
+.generator-input-area {
+  position: fixed;
+  bottom: 0;
+  left: 260px; /* 侧边栏宽度 */
+  right: 0;
+  background: #1e1e1e;
+  border-top: 1px solid #2d2d2d;
+  padding: 24px;
+  z-index: 100;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.input-settings-section {
+  margin-bottom: 16px;
+}
+
+.settings-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.setting-item label {
+  font-size: 12px;
+  color: #999;
+}
+
+.setting-select {
+  padding: 10px 12px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.setting-select:hover:not(:disabled) {
+  background: #333;
+  border-color: #4d4d4d;
+}
+
+.setting-select:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.setting-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.setting-select option {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+/* 次数输入控件 */
+.count-input-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+}
+
+.count-button {
+  width: 32px;
+  height: 40px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.count-button:hover:not(:disabled) {
+  background: #333;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.count-button:active:not(:disabled) {
+  background: #3a3a3a;
+  transform: scale(0.95);
+}
+
+.count-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.count-input {
+  flex: 1;
+  min-width: 60px;
+  height: 40px;
+  padding: 0 8px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #e0e0e0;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.count-input:focus {
+  outline: none;
+  border-color: #ff6b35;
+  background: #333;
+}
+
+.count-input::-webkit-inner-spin-button,
+.count-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.count-input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* 批量生成模版按钮 */
+.batch-template-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.template-button {
+  flex: 1;
+  padding: 8px 12px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.template-button:hover {
+  background: #333;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.template-button:active {
+  background: #3a3a3a;
+  transform: scale(0.95);
+}
+
+.input-main-section {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.reference-image-container {
+  position: relative;
+  min-width: 120px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reference-image-button {
+  width: 100%;
+  height: 100%;
+  padding: 12px 20px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reference-image-button:hover:not(:disabled) {
+  background: #333;
+  border-color: #4d4d4d;
+}
+
+.reference-image-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reference-image-preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #3d3d3d;
+  cursor: pointer;
+}
+
+.reference-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reference-image-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reference-image-remove:hover {
+  background: rgba(255, 77, 79, 0.9);
+}
+
+.prompt-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #e0e0e0;
+  resize: none;
+  min-height: 50px;
+  transition: border-color 0.2s;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.prompt-input::placeholder {
+  color: #666;
+}
+
+.image-preview-section {
+  margin-bottom: 16px;
+}
+
+.image-preview-list-compact {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.image-preview-item-compact {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #3d3d3d;
+}
+
+.image-preview-item-compact img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview-item-compact button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.input-actions-section {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.generate-button-main {
+  flex: 1;
+  padding: 14px 24px;
+  background: #52c41a;
+  color: white;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.generate-button-main:hover:not(:disabled) {
+  background: #73d13d;
+}
+
+.generate-button-main:disabled {
+  background: #3d3d3d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.progress-section-compact {
+  margin-bottom: 12px;
+}
+
+.progress-bar-compact {
+  width: 100%;
+  height: 6px;
+  background: #3d3d3d;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill-compact {
+  height: 100%;
+  background: #ff6b35;
+  transition: width 0.3s;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+}
+
+.logs-section-compact {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.logs-container-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-entry-compact {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.log-entry-compact.log-info {
+  background: rgba(24, 144, 255, 0.1);
+  color: #40a9ff;
+}
+
+.log-entry-compact.log-success {
+  background: rgba(82, 196, 26, 0.1);
+  color: #73d13d;
+}
+
+.log-entry-compact.log-error {
+  background: rgba(255, 77, 79, 0.1);
+  color: #ff7875;
+}
+
+.log-entry-compact.log-warning {
+  background: rgba(250, 173, 20, 0.1);
+  color: #ffc53d;
+}
+
+.log-message-compact {
+  font-size: 12px;
+}
+
+/* 日志弹窗样式 */
+.log-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.log-modal-content {
+  background: #1e1e1e;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #3d3d3d;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.log-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #3d3d3d;
+}
+
+.log-modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin: 0;
+}
+
+.log-modal-close {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: #b0b0b0;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.log-modal-close:hover {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.log-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.log-empty {
+  text-align: center;
+  color: #666;
+  padding: 40px;
+  font-size: 14px;
+}
+
+.log-modal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.log-modal-entry {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.log-modal-entry.log-info {
+  background: rgba(24, 144, 255, 0.1);
+  border-left: 3px solid #40a9ff;
+}
+
+.log-modal-entry.log-success {
+  background: rgba(82, 196, 26, 0.1);
+  border-left: 3px solid #73d13d;
+}
+
+.log-modal-entry.log-error {
+  background: rgba(255, 77, 79, 0.1);
+  border-left: 3px solid #ff7875;
+}
+
+.log-modal-entry.log-warning {
+  background: rgba(250, 173, 20, 0.1);
+  border-left: 3px solid #ffc53d;
+}
+
+.log-modal-time {
+  color: #999;
+  font-size: 12px;
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.log-modal-message {
+  color: #e0e0e0;
+  flex: 1;
+  word-break: break-word;
+}
+
+/* 视频列表头部 */
+.video-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.video-list-header h2 {
+  color: #e0e0e0;
+  font-size: 20px;
+  margin: 0;
+}
+
+/* 清除所有任务按钮 */
+.clear-all-tasks-button {
+  padding: 8px 16px;
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clear-all-tasks-button:hover {
+  background: #ff6666;
+  transform: translateY(-1px);
+}
+
+.clear-all-tasks-button:active {
+  transform: translateY(0);
+}
+
+/* 删除任务按钮 */
+.delete-task-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 68, 68, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  opacity: 0.8;
+}
+
+.delete-task-button:hover {
+  background: rgba(255, 68, 68, 1);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.delete-task-button:active {
+  transform: scale(0.95);
+}
+

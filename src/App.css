@@ -1,0 +1,327 @@
+/**
+ * 作者：沐七
+ * 日期：2025/12/11
+ */
+.app {
+  min-height: 100vh;
+  display: flex;
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.app-sidebar {
+  width: 260px;
+  background: #1e1e1e;
+  border-right: 1px solid #2d2d2d;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ff6b35;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #999;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 0;
+}
+
+.nav-item {
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  color: #b0b0b0;
+  font-size: 14px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.nav-item.active {
+  background: #2a2a2a;
+  color: #ff6b35;
+  border-left: 3px solid #ff6b35;
+}
+
+.nav-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar-api-settings {
+  padding: 20px;
+  border-top: 1px solid #2d2d2d;
+  background: #1a1a1a;
+}
+
+.api-key-link-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.api-key-link {
+  display: block;
+  font-size: 11px;
+  color: #4a9eff;
+  text-decoration: none;
+  word-break: break-all;
+  line-height: 1.5;
+  transition: color 0.2s;
+}
+
+.api-key-link:hover {
+  color: #6bb3ff;
+  text-decoration: underline;
+}
+
+.api-setting-item {
+  margin-bottom: 16px;
+}
+
+.api-setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.api-setting-item label {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.api-key-input-sidebar {
+  width: 100%;
+  padding: 8px 12px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+
+.api-key-input-sidebar:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.api-key-input-sidebar::placeholder {
+  color: #666;
+}
+
+.save-api-key-button-sidebar {
+  width: 100%;
+  padding: 8px;
+  background: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.save-api-key-button-sidebar:hover {
+  background: #ff8555;
+}
+
+/* 输出目录选择器 */
+.output-directory-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.select-directory-button {
+  width: 100%;
+  padding: 8px 12px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.select-directory-button:hover {
+  background: #333;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.directory-name {
+  font-size: 11px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.app-main {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-header {
+  padding: 20px 32px;
+  border-bottom: 1px solid #2d2d2d;
+  background: #1e1e1e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: #999;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.clear-all-tasks-button-header {
+  padding: 8px 16px;
+  background: #ff4444;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clear-all-tasks-button-header:hover {
+  background: #ff6666;
+  transform: translateY(-1px);
+}
+
+.clear-all-tasks-button-header:active {
+  transform: translateY(0);
+}
+
+.download-all-button-header {
+  padding: 8px 16px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.download-all-button-header:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.download-all-button-header:active {
+  transform: translateY(0);
+}
+
+.log-button-header {
+  padding: 8px 16px;
+  background: #2a2a2a;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.log-button-header:hover {
+  background: #333;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.video-enhancer-button-header {
+  padding: 8px 16px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.video-enhancer-button-header:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.video-enhancer-button-header:active {
+  transform: translateY(0);
+}
+
+.main-content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+

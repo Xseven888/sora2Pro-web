@@ -1,0 +1,22 @@
+/**
+ * 作者：沐七
+ * 日期：2025/12/11
+ */
+.watermark-remover-container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: -32px;
+  padding: 0;
+}
+
+.watermark-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  flex: 1;
+  min-height: 0;
+}
+
