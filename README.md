@@ -89,4 +89,4 @@ npm run build
 - 获取API地址：https://api.sora2.email/register?aff=J0Aw
 
 
-![alt text](1.png)![alt text](2.png)![alt text](3.png)![alt text](wx1.jpg) ![alt text](wx.jpg) ![alt text](3-1.png)
+![alt text](1.png)![alt text](2.png)![alt text](3.png)![alt text](wx1.jpg) ![alt text](wx.jpg) 
